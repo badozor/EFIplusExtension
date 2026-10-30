@@ -1,6 +1,8 @@
-pandas>=2.0
-openpyxl>=3.1
-streamlit>=1.45
-altair>=5
-nicegui>=2.0
+# Minimum versions = versions tested (Python 3.13, R 4.3.3, 30/10/2026).
+# Older versions are not tested. NiceGUI < 3 does not work (upload API changed in 3.x).
+pandas>=3.0.5,<4
+openpyxl>=3.1.5,<4
+streamlit>=1.66.1,<2
+altair>=6.3.0,<7
+nicegui>=3.18.0,<4
 pytest
