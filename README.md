@@ -1,5 +1,7 @@
 # EFI+ calculator (Python GUI for efitools-1.3)
 
+> Développé avec l’aide de l’IA (Claude, Anthropic), sous la relecture active de Pierre Bady.
+
 Local web interface to compute the new European Fish Index (EFI+) with the R engine
 **efitools-1.3**, following Part II of the *Manual for the application of the new European
 Fish Index – EFI+* (June 2009): data input (Excel file or manual form), checks, "Run script",
@@ -80,6 +82,10 @@ Tested with R 4.3.3. No comparison with R 2.8.1 (the version used in 2009) was p
 ```
 python -m pytest tests/
 ```
+
+## Credits
+
+Développé avec l’aide de l’IA (Claude, Anthropic), sous la relecture active de Pierre Bady.
 
 ## License
 
