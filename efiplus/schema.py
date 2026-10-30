@@ -44,6 +44,15 @@ ECOREGIONS = (
     "Pyrenees", "The Carpathians", "Western Highlands", "Western Plains",
 )
 
+# Illies number and names of the GIS layer (efiminus.R, "SIG table") -> name used by efitools.
+_ILLIES_EFI = {1: "Iberian Peninsula", 2: "Pyrenees", 3: "Italy", 4: "Alps", 8: "Western Highlands",
+               9: "Central Highlands", 10: "The Carpathians", 11: "Hungarian Lowlands", 12: "Pontic Province",
+               13: "Western Plains", 14: "Central Plains", 15: "Baltic Province", 16: "Eastern Plains",
+               18: "Great Britain", 20: "Borealic Uplands", 22: "Fenno-Scandian Shield"}
+ECOREG_ALIASES = {f"{k}{s}": v for k, v in _ILLIES_EFI.items() for s in ("", ".0")}
+ECOREG_ALIASES.update({"Ibero-Macaronesian region": "Iberian Peninsula", "Italy and Corsica": "Italy",
+                       "England": "Great Britain", "The Carpathiens": "The Carpathians"})
+
 # FAME European fish types used by prepRegEco (T.5, T.6, T.14, T.15 -> Cyprinid,
 # T.NA -> missing, any other type -> Salmonid).
 EFT_TYPES = tuple(f"T.{i}" for i in range(1, 16)) + ("T.NA",)
@@ -79,7 +88,10 @@ INPUT_VARS: tuple[Var, ...] = (
     Var("Area.ctch", "Upstream drainage area", "float", "sample", vmin=1, vmax=20_000_000, unit="km²"),
     Var("Natural.sediment", "Former sediment", "cat", "sample",
         choices=("Organic", "Silt", "Sand", "Gravel/Pebble/Cobble", "Boulder/Rock", NODATA)),
-    Var("Ecoreg", "Ecoregion (Illies)", "cat", "sample", choices=ECOREGIONS),
+    Var("Ecoreg", "Ecoregion (Illies)", "cat", "sample", choices=ECOREGIONS,
+        help="Can be left empty when an ecoregion layer is set: it is then assigned from the coordinates. "
+             "The Illies number (1-25) is also accepted.",
+        aliases=ECOREG_ALIASES),
     Var("Eft.type", "European fish type (FAME EFT)", "cat", "sample", choices=EFT_TYPES,
         help="T.5, T.6, T.14, T.15 are treated as Cyprinid types by the engine; T.NA = unknown."),
     Var("Medit", "Mediterranean type", "int", "sample", choices=(0, 1, 2), vmin=0, vmax=2,

@@ -135,9 +135,38 @@ Help built into the spreadsheet:
   `Total.number.run1`.
 - **Diadromous species** (`input2`): `Yes`, `No` or `NoData` for each `historic` and `present`
   column. A row of `input2` must have the same Site code and date as a sample of `input1`.
+- **Ecoregion** (`Ecoreg`): can be left empty when an ecoregion layer is set. It is then
+  assigned from the coordinates (see
+  [Ecoregion from the coordinates](#ecoregion-from-the-coordinates)). The Illies number (`1`–`25`)
+  and the names of the GIS layer (`England`, `Italy and Corsica`, …) are also accepted.
 
 The allowed values of every variable are listed in Help › Input variables (Tables 14 and 16 of
 the manual).
+
+### Ecoregion from the coordinates
+
+This needs a map of the Illies ecoregions (WFD, Annex XI). No map is shipped with the GUI: the
+layer of the EFI+ project is not public. Give your own layer:
+
+- **Sidebar › Ecoregion map › Path to the ecoregion layer**, or
+- environment variable `EFI_ECOREG_LAYER`, or
+- copy the files of the layer (`.shp`, `.shx`, `.dbf`, `.prj`) to the folder `local/ecoregions/`.
+
+The layer must contain polygons and an attribute `AREA_ID` with the Illies number (1–25). A
+GeoJSON file is also accepted. Without a layer, the ecoregion must be typed, as before.
+
+- **Ecoregion empty**: it is assigned from Longitude and Latitude. A warning gives the ecoregion
+  found.
+- **Ecoregion given**: it is kept. A warning appears when the coordinates fall in another
+  ecoregion, except for sites less than 5 km from the border of the given ecoregion.
+- **Site less than 5 km from another ecoregion**: the warning asks to check the ecoregion. The
+  map is coarse.
+- **Site outside the map** (sea, coast) but less than 10 km from it: the nearest ecoregion is
+  used.
+- **Site in an ecoregion not covered by EFI+** (Ireland, Iceland, Balkans 5–7, Caucasus, Caspic
+  depression, Taiga, Tundra): error. efitools only knows 16 of the 25 Illies ecoregions.
+
+The 5 km and 10 km thresholds are choices of this GUI, not values of the EFI+ manual.
 
 ### 4.3 Upload
 
@@ -164,6 +193,9 @@ Use this page for a few samples. Each sample is entered once, then added to a li
 - Categories are chosen in lists. Numbers show their allowed range when the mouse is over the
   field; a value outside the range is shown in red.
 - **Sampling date**: type `YYYY-MM-DD` or click the calendar icon.
+- **Ecoregion**: when an ecoregion layer is set, filled from the map as soon as Longitude and
+  Latitude are typed. The line
+  below the field gives the Illies ecoregion found. It can still be changed by hand.
 
 ### 5.2 Fish caught in run 1
 

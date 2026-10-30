@@ -9,7 +9,7 @@ import datetime as dt
 import pandas as pd
 import streamlit as st
 
-from efiplus import __version__, engine, excel_io, schema as S, ui_common as U, validate
+from efiplus import __version__, ecoregion, engine, excel_io, schema as S, ui_common as U, validate
 
 st.set_page_config(page_title=U.APP_TITLE, page_icon=str(U.FAVICON) if U.FAVICON.is_file() else "🐟", layout="wide")
 if U.LOGO.is_file():
@@ -26,7 +26,7 @@ ss = st.session_state
 for k, v in {"raw1": None, "raw2": None, "source": None, "check": None, "result": None,
              "manual1": pd.DataFrame(columns=S.INPUT_COLUMNS),
              "manual2": pd.DataFrame(columns=S.DIAD_COLUMNS),
-             "page": "Home", "rscript": engine.find_rscript() or ""}.items():
+             "page": "Home", "rscript": engine.find_rscript() or "", "ecolayer": ""}.items():
     ss.setdefault(k, v)
 
 if "_goto" in ss:
@@ -69,6 +69,12 @@ with st.sidebar:
         st.error("Rscript not found. Install R from cran.r-project.org.", icon="⛔")
     if missing:
         st.error("Engine files missing: " + ", ".join(missing), icon="⛔")
+    st.markdown("**Ecoregion map** (optional)")
+    ss.ecolayer = st.text_input("Path to the ecoregion layer", ss.ecolayer,
+                                help="Optional. Polygon layer of the Illies ecoregions (.shp or .geojson, attribute AREA_ID = Illies number). Used to fill or check the ecoregion from the coordinates. Can also be set with EFI_ECOREG_LAYER or by copying the layer to local/ecoregions/.")
+    ecoregion.set_layer(ss.ecolayer)
+    eco_ok, eco_msg = ecoregion.status()
+    (st.success if eco_ok else st.info)(eco_msg, icon="✅" if eco_ok else "ℹ️")
     if ss.source:
         st.divider()
         st.markdown(f"**Current dataset**  \n{ss.source}")
@@ -196,7 +202,12 @@ def _site_form() -> dict:
 
     st.markdown("##### Environment")
     c = st.columns(4)
-    site["Ecoreg"] = cat(c[0], "Ecoreg")
+    eco_map, eco_txt = U.ecoregion_hint(site["Longitude"], site["Latitude"])
+    v = S.VAR_BY_NAME["Ecoreg"]
+    # The key changes with the map answer, so the box is reset to the ecoregion of the new coordinates.
+    site["Ecoreg"] = c[0].selectbox(v.label + " *", v.choices, key=f"ecoreg_{eco_map}",
+                                    index=list(v.choices).index(eco_map or d["Ecoreg"]), help=v.help)
+    c[0].caption(eco_txt)
     site["Eft.type"] = cat(c[1], "Eft.type")
     site["Medit"] = cat(c[2], "Medit")
     site["Area.ctch"] = num(c[3], "Area.ctch")
