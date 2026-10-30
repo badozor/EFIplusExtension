@@ -47,7 +47,8 @@ app_streamlit.py, app_nicegui.py   front-ends
 efiplus/                           core: schema, validate, engine, excel_io, ui_common, examples
 engine/                            efitools-1.3 (main.R, maindiad.R, internal/, CHANGES.txt)
 assets/                            EFI+ logo and favicon
-docs/                              manuals (PDF) shown in Help
+archive/                           original files (efitools-1.2.rar, EFI+ manual, deliverables D4.1-D4.2)
+docs/                              PDF documents shown in Help (see Documents below)
 tests/test_core.py                 pytest: checks, engine run, Excel round trip
 ```
 
@@ -77,6 +78,20 @@ Tested with R 4.3.3. No comparison with R 2.8.1 (the version used in 2009) was p
 - Year range: Table 16 says 1950–2020; the GUI accepts up to the current year.
 - The example data (`efiplus/examples.py`) are invented to show the workflow.
 
+## Documents
+
+`archive/` keeps the original material of the project, unchanged:
+
+- `efitools-1.2.rar`: R engine efitools-1.2 (2009), with its documentation and the
+  *EFI+ Excel/Access First Input Manual* v4.1;
+- `Manual_for_the_application_of_the_new_European_Fish_Index_EFIplus.pdf`: manual for the
+  application of the new European Fish Index – EFI+ (EFI+ consortium, June 2009);
+- `EFIDeliverablesD4.1andD4.2WP42009-03-01.pdf`: EFI+ deliverables D4.1 and D4.2, WP4 (2009).
+
+`docs/` contains `EfitoolsDoc-1.1.pdf`. Other PDF copies placed in `docs/` are listed in the Help
+page of the GUI. The manual gives http://efi-plus.boku.ac.at as project web site (2009 address,
+not checked).
+
 ## Tests
 
 ```
@@ -94,4 +109,5 @@ GNU General Public License, version 2 or (at your option) any later version
 
 Copyright (C) 2008-2009, 2026 Pierre Bady (efitools: Pierre Bady, Maxime Logez, Didier Pont).
 
-The PDF manuals in `docs/` are documents of the EFI+ consortium and are not covered by this licence.
+`docs/EfitoolsDoc-1.1.pdf` is documentation of efitools (P. Bady, M. Logez, D. Pont).
+The PDF documents of the EFI+ consortium in `archive/` are not covered by this licence.
