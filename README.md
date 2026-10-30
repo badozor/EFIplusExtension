@@ -16,6 +16,7 @@ Two front-ends share the same core (`efiplus/`):
 | Start | `streamlit run app_streamlit.py` | `python app_nicegui.py` |
 | URL | http://localhost:8501 | http://localhost:8080 |
 | Windows launcher | `run_streamlit.bat` | `run_nicegui.bat` |
+| User guide | [docs/USER_GUIDE_streamlit.md](docs/USER_GUIDE_streamlit.md) | [docs/USER_GUIDE_nicegui.md](docs/USER_GUIDE_nicegui.md) |
 
 ## Requirements
 
@@ -49,8 +50,8 @@ app_streamlit.py, app_nicegui.py   front-ends
 efiplus/                           core: schema, validate, engine, excel_io, ui_common, examples
 engine/                            efitools-1.3 (main.R, maindiad.R, internal/, CHANGES.txt)
 assets/                            EFI+ project logo (EFI+ consortium) and favicon
-archive/                           original files (efitools-1.2.rar, EFI+ manual, deliverables D4.1-D4.2)
-docs/                              PDF documents shown in Help (see Documents below)
+archive/                           original files (efitools-1.2.rar, EFI+ manual, deliverables D4.1-D4.2, EfitoolsDoc-1.1)
+docs/                              user guides, screenshots, PDF documents shown in Help
 tests/test_core.py                 pytest: checks, engine run, Excel round trip
 ```
 
@@ -67,10 +68,19 @@ The engine shipped in `engine/` is efitools-1.3 (details in `engine/CHANGES.txt`
 
 Tested with R 4.3.3. No comparison with R 2.8.1 (the version used in 2009) was possible here.
 
-## Known issue (not corrected)
+## Known limitations (not corrected)
+
+Observed with R 4.3.3 on the example data. Details in the user guides, section 10.
 
 - `commentDate`: the test `month > 11 & month < 8` is never true, so `Comments.date` is always
   "Nothing to report". The GUI check adds its own warning for months outside August–November.
+- Site codes `xxxxxx` and `zzzzzz` are used by the engine for internal dummy rows: a sample with
+  one of these codes is removed from the output without message.
+- `NoData` in Former floodplain, Water source, Geomorphology or Former sediment: no Fish index and
+  no class. `NoData` in Method: Fish index computed, no class. The GUI only warns
+  "Missing value (coded NoData)".
+- Length classes not adding up to the total: the GUI warns that the length-based metric is NA; for
+  a Salmonid-zone sample the Fish index and the class are not computed at all.
 
 ## Open points
 
@@ -88,10 +98,12 @@ Tested with R 4.3.3. No comparison with R 2.8.1 (the version used in 2009) was p
   *EFI+ Excel/Access First Input Manual* v4.1;
 - `Manual_for_the_application_of_the_new_European_Fish_Index_EFIplus.pdf`: manual for the
   application of the new European Fish Index – EFI+ (EFI+ consortium, June 2009);
-- `EFIDeliverablesD4.1andD4.2WP42009-03-01.pdf`: EFI+ deliverables D4.1 and D4.2, WP4 (2009).
+- `EFIDeliverablesD4.1andD4.2WP42009-03-01.pdf`: EFI+ deliverables D4.1 and D4.2, WP4 (2009);
+- `EfitoolsDoc-1.1.pdf`: documentation of efitools 1.1 (P. Bady, M. Logez, D. Pont).
 
-`docs/` contains `EfitoolsDoc-1.1.pdf`. Other PDF copies placed in `docs/` are listed in the Help
-page of the GUI. The manual gives http://efi-plus.boku.ac.at as project web site (2009 address,
+`docs/` contains the user guides (`USER_GUIDE_nicegui.md`, `USER_GUIDE_streamlit.md`, screenshots
+in `docs/img/`) and a copy of `EfitoolsDoc-1.1.pdf`. PDF files placed in `docs/` are listed in the
+Help page of the GUI. The manual gives http://efi-plus.boku.ac.at as project web site (2009 address,
 not checked).
 
 ## Tests
@@ -114,6 +126,6 @@ GNU General Public License, version 2 or (at your option) any later version
 
 Copyright (C) 2008-2009, 2026 Pierre Bady (efitools: Pierre Bady, Maxime Logez, Didier Pont).
 
-`docs/EfitoolsDoc-1.1.pdf` is documentation of efitools (P. Bady, M. Logez, D. Pont).
+`EfitoolsDoc-1.1.pdf` is documentation of efitools (P. Bady, M. Logez, D. Pont).
 The PDF documents of the EFI+ consortium in `archive/` and the EFI+ logo in `assets/` are not
 covered by this licence.
