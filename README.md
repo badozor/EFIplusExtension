@@ -2,6 +2,8 @@
 
 > Développé avec l’aide de l’IA (Claude, Anthropic), sous la relecture active de Pierre Bady.
 
+Reference version: https://github.com/badozor/EFIplusExtension
+
 Local web interface to compute the new European Fish Index (EFI+) with the R engine
 **efitools-1.3**, following Part II of the *Manual for the application of the new European
 Fish Index – EFI+* (June 2009): data input (Excel file or manual form), checks, "Run script",
