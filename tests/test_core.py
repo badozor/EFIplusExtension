@@ -24,6 +24,16 @@ def test_diadromous_labels_fixed_in_v13():
     ratio = (o["Present.ric.diadromous"] / o["Hist.ric.diadromous"]).round(6)
     assert ratio.equals(o["Ids.ric.diadromous"].round(6))
 
+def test_temporary_folder_removed(tmp_path):
+    import tempfile, glob, os
+    before = set(glob.glob(os.path.join(tempfile.gettempdir(), "efiplus_*")))
+    res = validate.check(example_input1())
+    r = engine.run(res.input1, None)
+    assert r.workdir is None
+    assert set(glob.glob(os.path.join(tempfile.gettempdir(), "efiplus_*"))) == before
+    r = engine.run(res.input1, None, keep_dir=str(tmp_path / "run"))
+    assert (tmp_path / "run" / "output.txt").is_file() and (tmp_path / "run" / "info.out").is_file()
+
 def test_main_without_diadromous():
     res = validate.check(example_input1())
     r = engine.run(res.input1, None)

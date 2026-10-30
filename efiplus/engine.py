@@ -1,6 +1,7 @@
 """Bridge to the R engine efitools-1.3 (main.R / maindiad.R) through Rscript."""
 from __future__ import annotations
 
+import functools
 import glob
 import os
 import re
@@ -40,7 +41,7 @@ class RunResult:
     log: str
     script: str
     rscript: str
-    workdir: str
+    workdir: str | None   # folder with input/output files, None when it was a temporary folder (deleted)
 
 
 def find_rscript(user_path: str | None = None) -> str | None:
@@ -70,7 +71,9 @@ def find_rscript(user_path: str | None = None) -> str | None:
     return sorted(hits, key=ver)[-1]
 
 
+@functools.lru_cache(maxsize=8)
 def r_version(rscript: str) -> str:
+    """First line of 'Rscript --version' (cached: the GUI asks for it on every refresh)."""
     try:
         r = subprocess.run([rscript, "--version"], capture_output=True, text=True, timeout=30)
         return (r.stdout + r.stderr).strip().splitlines()[0]
@@ -115,8 +118,16 @@ def run(input1: pd.DataFrame, input2: pd.DataFrame | None = None, rscript: str |
     if not rs:
         raise EngineError("Rscript not found. Install R (https://cran.r-project.org) or give the path to Rscript.")
 
-    work = Path(keep_dir) if keep_dir else Path(tempfile.mkdtemp(prefix="efiplus_"))
-    work.mkdir(parents=True, exist_ok=True)
+    if keep_dir:
+        work = Path(keep_dir)
+        work.mkdir(parents=True, exist_ok=True)
+        return _run_in(work, rs, input1, input2, timeout, keep=True)
+    with tempfile.TemporaryDirectory(prefix="efiplus_") as tmp:
+        return _run_in(Path(tmp), rs, input1, input2, timeout, keep=False)
+
+
+def _run_in(work: Path, rs: str, input1: pd.DataFrame, input2: pd.DataFrame | None,
+            timeout: int, keep: bool) -> RunResult:
     inp, out = work / "input.txt", work / "output.txt"
     _write_txt(input1, inp, S.INPUT_COLUMNS)
     args = [rs, "--vanilla", str(ENGINE_DIR / "main.R"), str(inp), str(out)]
@@ -146,4 +157,4 @@ def run(input1: pd.DataFrame, input2: pd.DataFrame | None = None, rscript: str |
         raise EngineError(msg + "\n" + "\n".join(tail), log)
 
     res = pd.read_csv(out, sep=";", na_values=["NA", "NaN"], keep_default_na=True)
-    return RunResult(output=res, log=log, script=script, rscript=rs, workdir=str(work))
+    return RunResult(output=res, log=log, script=script, rscript=rs, workdir=str(work) if keep else None)
