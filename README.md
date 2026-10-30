@@ -103,7 +103,8 @@ Observed with R 4.3.3 on the example data. Details in the user guides, section 1
 - `EfitoolsDoc-1.1.pdf`: documentation of efitools 1.1 (P. Bady, M. Logez, D. Pont).
 
 `docs/` contains the user guides (`USER_GUIDE_nicegui.md`, `USER_GUIDE_streamlit.md`, screenshots
-in `docs/img/`) and a copy of `EfitoolsDoc-1.1.pdf`. PDF files placed in `docs/` are listed in the
+in `docs/img/`). PDF files placed in `docs/` (for example copies of the documents of `archive/`) are
+listed in the
 Help page of the GUI. The manual gives http://efi-plus.boku.ac.at as project web site (2009 address,
 not checked).
 
