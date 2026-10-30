@@ -142,3 +142,28 @@ def site_defaults() -> dict:
               "Medit": 0, "Method": "Wading", "Sampling.location": "Main channel",
               "Flow.regime": "Permanent", "Lakes.upstream": "No"})
     return d
+
+
+def ecoregion_hint(lon, lat) -> tuple[str | None, str]:
+    """Ecoregion given by the map for the manual forms: (efitools name or None, short text)."""
+    from . import ecoregion
+    try:
+        lon, lat = float(lon), float(lat)
+    except (TypeError, ValueError):
+        return None, "Type the coordinates to get the ecoregion from the map."
+    vl, va = S.VAR_BY_NAME["Longitude"], S.VAR_BY_NAME["Latitude"]
+    if not (vl.vmin <= lon <= vl.vmax and va.vmin <= lat <= va.vmax):
+        return None, "Coordinates out of range."
+    ok, msg = ecoregion.status()
+    if not ok:
+        return None, msg
+    h = ecoregion.lookup(lon, lat)
+    if not h.found:
+        return None, f"Map: no ecoregion within {h.outside_km:g} km."
+    if h.efi_name is None:
+        return None, f"Map: {h.label()}, not covered by EFI+."
+    txt = f"Map: {h.label()}."
+    if h.neighbours:
+        n, dkm = h.neighbours[0]
+        txt += f" {dkm:g} km from Illies {n} '{ecoregion.illies_name(n)}': check."
+    return h.efi_name, txt

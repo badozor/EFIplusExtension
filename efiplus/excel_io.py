@@ -63,7 +63,7 @@ def build_template(example: bool = False) -> bytes:
         L = get_column_letter(j)
         if v.name in ranges:
             dv = DataValidation(type="list", formula1=f"={ranges[v.name]}", allow_blank=True,
-                                showErrorMessage=v.name != "Species")
+                                showErrorMessage=v.name not in ("Species", "Ecoreg"))
             dv.error = f"Allowed values for {v.name}: see the drop-down list."
             ws1.add_data_validation(dv)
             dv.add(f"{L}2:{L}5000")

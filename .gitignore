@@ -6,3 +6,5 @@ __pycache__/
 engine/output/*
 # EFI+ consortium manuals: not redistributed here; put local copies in docs/ to show them in Help
 docs/*.pdf
+# Local data that must not be published (e.g. ecoregion layer of the EFI+ project)
+local/
