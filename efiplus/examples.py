@@ -8,7 +8,7 @@ import pandas as pd
 from . import schema as S
 
 _SITES = {
-    "CH0001": dict(Day=12, Month=9, Year=2007, Longitude=7.1, Latitude=46.9, slope=8.5, tjul=16.5, tjan=-1.5,
+    "CH0001": dict(Day=12, Month=9, Year=2007, Longitude=7.9, Latitude=46.7, slope=8.5, tjul=16.5, tjan=-1.5,
                    fp="No", ws="Nival", geo="Sinuous", dist=12, area=45, sed="Gravel/Pebble/Cobble",
                    eco="Alps", eft="T.1", medit=0, fished=600, method="Wading", loc="Main channel",
                    sp=[("Salmo trutta fario", 85, 60, 25), ("Cottus gobio", 40, 40, 0), ("Phoxinus phoxinus", 22, 22, 0)]),

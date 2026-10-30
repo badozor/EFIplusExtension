@@ -10,7 +10,7 @@ import os
 import pandas as pd
 from nicegui import app, run, ui
 
-from efiplus import __version__, engine, excel_io, schema as S, ui_common as U, validate
+from efiplus import __version__, ecoregion, engine, excel_io, schema as S, ui_common as U, validate
 from efiplus.examples import example_input1, example_input2
 
 if U.ASSETS_DIR.is_dir():
@@ -57,6 +57,7 @@ class State:
         self.manual1 = pd.DataFrame(columns=S.INPUT_COLUMNS)
         self.manual2 = pd.DataFrame(columns=S.DIAD_COLUMNS)
         self.rscript = engine.find_rscript() or ""
+        self.ecolayer = ""
 
     def set_dataset(self, raw1, raw2, source, notes=()):
         self.raw1, self.raw2, self.source, self.notes = raw1, raw2, source, list(notes)
@@ -114,6 +115,22 @@ def main_page():
                 ui.label(st.source).classes("text-caption")
         r_status()
         r_input.on("blur", lambda: (setattr(st, "rscript", r_input.value), r_status.refresh()))
+
+        ui.label("Ecoregion map (optional)").classes("text-subtitle2 q-mt-sm")
+        e_input = ui.input("Path to the ecoregion layer", value=st.ecolayer).classes("w-full").props("dense")
+        e_input.tooltip("Optional. Polygon layer of the Illies ecoregions (.shp or .geojson, attribute AREA_ID = Illies number). Used to fill or check the ecoregion from the coordinates. Can also be set with EFI_ECOREG_LAYER or by copying the layer to local/ecoregions/.")
+
+        @ui.refreshable
+        def e_status():
+            ok, msg = ecoregion.status(e_input.value)
+            ui.label(("✅ " if ok else "ℹ️ ") + msg).classes(("text-positive" if ok else "text-grey-7") + " text-caption")
+        e_status()
+
+        def set_ecolayer():
+            st.ecolayer = e_input.value
+            ecoregion.set_layer(e_input.value)
+            e_status.refresh()
+        e_input.on("blur", set_ecolayer)
 
     def go(tab):
         tabs.set_value(tab)
@@ -219,6 +236,16 @@ def main_page():
                     for n in ("Ecoreg", "Eft.type", "Medit"):
                         f[n] = cat(n)
                     f["Area.ctch"] = num("Area.ctch")
+                eco_hint = ui.label(U.ecoregion_hint(None, None)[1]).classes("text-caption text-grey-7")
+
+                def update_ecoreg(_=None):
+                    name, txt = U.ecoregion_hint(f["Longitude"].value, f["Latitude"].value)
+                    eco_hint.text = txt
+                    if name:
+                        f["Ecoreg"].value = name
+
+                f["Longitude"].on_value_change(update_ecoreg)
+                f["Latitude"].on_value_change(update_ecoreg)
                 with ui.row().classes("w-full no-wrap gap-3"):
                     for n in ("Distance.from.source", "Actual.river.slope", "Temp.jan", "Temp.jul"):
                         f[n] = num(n)

@@ -47,12 +47,14 @@ Two front-ends share the same core (`efiplus/`):
 
 ```
 app_streamlit.py, app_nicegui.py   front-ends
-efiplus/                           core: schema, validate, engine, excel_io, ui_common, examples
+efiplus/                           core: schema, validate, engine, excel_io, ui_common, examples, ecoregion
+local/ecoregions/                  optional local ecoregion layer (ignored by git, not published)
 engine/                            efitools-1.3 (main.R, maindiad.R, internal/, CHANGES.txt)
 assets/                            EFI+ project logo (EFI+ consortium) and favicon
 archive/                           original files (efitools-1.2.rar, EFI+ manual, deliverables D4.1-D4.2, EfitoolsDoc-1.1)
 docs/                              user guides, screenshots, PDF documents shown in Help
 tests/test_core.py                 pytest: checks, engine run, Excel round trip
+tests/test_ecoregion.py            pytest: ecoregion from the coordinates
 ```
 
 ## efitools-1.3
@@ -89,7 +91,12 @@ Observed with R 4.3.3 on the example data. Details in the user guides, section 1
   the manual. The GUI accepts `T.1` … `T.15` and `T.NA`; only T.5, T.6, T.14, T.15 change the
   result (Cyprinid). The list of valid types should be confirmed.
 - Year range: Table 16 says 1950–2020; the GUI accepts up to the current year.
-- The example data (`efiplus/examples.py`) are invented to show the workflow.
+- The example data (`efiplus/examples.py`) are invented to show the workflow. CH0001 was moved
+  to 7.9 E, 46.7 N so that its coordinates fall in the Alps, as its ecoregion says.
+- Ecoregion from the coordinates: no map is shipped. The EFI+ layer (ECOREG1,
+  `Ecoregions_Project_WGS84.shp`, the "SIG table" quoted in `efiminus.R`) is not public. Each
+  user gives a local layer (sidebar, `EFI_ECOREG_LAYER`, or `local/ecoregions/`). The 5 km
+  (near a border) and 10 km (outside the map) thresholds are choices of this GUI.
 
 ## Documents
 
