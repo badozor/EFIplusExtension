@@ -80,3 +80,12 @@ Tested with R 4.3.3. No comparison with R 2.8.1 (the version used in 2009) was p
 ```
 python -m pytest tests/
 ```
+
+## License
+
+GNU General Public License, version 2 or (at your option) any later version
+(GPL-2.0-or-later), the licence of efitools since version 1.0. Full text in `LICENSE`.
+
+Copyright (C) 2008-2009, 2026 Pierre Bady (efitools: Pierre Bady, Maxime Logez, Didier Pont).
+
+The PDF manuals in `docs/` are documents of the EFI+ consortium and are not covered by this licence.
