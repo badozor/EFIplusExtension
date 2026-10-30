@@ -46,7 +46,7 @@ Two front-ends share the same core (`efiplus/`):
 app_streamlit.py, app_nicegui.py   front-ends
 efiplus/                           core: schema, validate, engine, excel_io, ui_common, examples
 engine/                            efitools-1.3 (main.R, maindiad.R, internal/, CHANGES.txt)
-assets/                            EFI+ logo and favicon
+assets/                            EFI+ project logo (EFI+ consortium) and favicon
 archive/                           original files (efitools-1.2.rar, EFI+ manual, deliverables D4.1-D4.2)
 docs/                              PDF documents shown in Help (see Documents below)
 tests/test_core.py                 pytest: checks, engine run, Excel round trip
@@ -102,6 +102,9 @@ python -m pytest tests/
 
 Développé avec l’aide de l’IA (Claude, Anthropic), sous la relecture active de Pierre Bady.
 
+The EFI+ logo in `assets/` is the logo of the EFI+ project (EFI+ consortium, EC contract 044096),
+taken from the cover of the EFI+ application manual (2009). It is used to identify the project.
+
 ## License
 
 GNU General Public License, version 2 or (at your option) any later version
@@ -110,4 +113,5 @@ GNU General Public License, version 2 or (at your option) any later version
 Copyright (C) 2008-2009, 2026 Pierre Bady (efitools: Pierre Bady, Maxime Logez, Didier Pont).
 
 `docs/EfitoolsDoc-1.1.pdf` is documentation of efitools (P. Bady, M. Logez, D. Pont).
-The PDF documents of the EFI+ consortium in `archive/` are not covered by this licence.
+The PDF documents of the EFI+ consortium in `archive/` and the EFI+ logo in `assets/` are not
+covered by this licence.
