@@ -1,0 +1,8 @@
+Site.code;Day;Month;Year;Longitude;Latitude;Actual.river.slope;Temp.jul;Temp.jan;Floodplain.site;Water.source.type;Geomorph.river.type;Distance.from.source;Area.ctch;Natural.sediment;Ecoreg;Eft.type;Medit;Species;Total.number.run1;Number.length.below.150;Number.length.over.150;Fished.area;Method;Sampling.location;Flow.regime;Lakes.upstream
+xxxxxx;05;08;20;15.3077296779;48.8918167923;1.48419962533;17.3;-2.3;Yes;Pluvial;Meand regular;62;587.57;Gravel/Pebble/Cobble;Central Highlands;T.15;0;Salmo trutta fario;3;0;3;6500;Wading;Main channel;Permanent;No
+xxxxxx;05;08;20;15.3077296779;48.8918167923;1.48419962533;17.3;-2.3;Yes;Pluvial;Meand regular;62;587.57;Gravel/Pebble/Cobble;Central Highlands;T.15;0;Cottus gobio;3;0;3;6500;Wading;Main channel;Permanent;No
+zzzzzz;05;08;20;15.3077296779;48.8918167923;1.48419962533;17.3;-2.3;Yes;Pluvial;Meand regular;62;587.57;Gravel/Pebble/Cobble;Central Highlands;T.15;0;Salmo trutta fario;3;0;3;6500;Wading;Main channel;Permanent;No
+zzzzzz;05;08;20;15.3077296779;48.8918167923;1.48419962533;17.3;-2.3;Yes;Pluvial;Meand regular;62;587.57;Gravel/Pebble/Cobble;Central Highlands;T.15;0;Cottus gobio;3;0;3;6500;Wading;Main channel;Permanent;No
+
+
+

@@ -1,0 +1,24 @@
+Site.code;Day;Month;Year;Longitude;Latitude;Actual.river.slope;Temp.jul;Temp.jan;Floodplain.site;Water.source.type;Geomorph.river.type;Distance.from.source;Area.ctch;Natural.sediment;Ecoreg;Eft.type;Medit;Species;Total.number.run1;Number.length.below.150;Number.length.over.150;Fished.area;Method;Sampling.location;Flow.regime;Lakes.upstream
+CH0001;12;9;2007;7.1;46.9;8.5;16.5;-1.5;No;Nival;Sinuous;12;45;Gravel/Pebble/Cobble;Alps;T.1;0;Salmo trutta fario;85;60;25;600;Wading;Main channel;Permanent;No
+CH0001;12;9;2007;7.1;46.9;8.5;16.5;-1.5;No;Nival;Sinuous;12;45;Gravel/Pebble/Cobble;Alps;T.1;0;Cottus gobio;40;40;0;600;Wading;Main channel;Permanent;No
+CH0001;12;9;2007;7.1;46.9;8.5;16.5;-1.5;No;Nival;Sinuous;12;45;Gravel/Pebble/Cobble;Alps;T.1;0;Phoxinus phoxinus;22;22;0;600;Wading;Main channel;Permanent;No
+FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Rutilus rutilus;120;110;10;3500;Boat;Main channel;Permanent;No
+FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Abramis brama;15;5;10;3500;Boat;Main channel;Permanent;No
+FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Perca fluviatilis;30;25;5;3500;Boat;Main channel;Permanent;No
+FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Esox lucius;4;1;3;3500;Boat;Main channel;Permanent;No
+FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Gobio gobio;60;60;0;3500;Boat;Main channel;Permanent;No
+FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Barbus barbus;8;3;5;3500;Boat;Main channel;Permanent;No
+FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Chondrostoma nasus;12;6;6;3500;Boat;Main channel;Permanent;No
+FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Anguilla anguilla;3;0;3;3500;Boat;Main channel;Permanent;No
+DE0003;20;8;2006;10.4;50.1;3.1;17.8;-0.8;Yes;Pluvial;Meand tortous;35;310;Gravel/Pebble/Cobble;Central Highlands;T.3;0;Salmo trutta fario;30;22;8;1200;Wading;Main channel;Permanent;No
+DE0003;20;8;2006;10.4;50.1;3.1;17.8;-0.8;Yes;Pluvial;Meand tortous;35;310;Gravel/Pebble/Cobble;Central Highlands;T.3;0;Thymallus thymallus;12;7;5;1200;Wading;Main channel;Permanent;No
+DE0003;20;8;2006;10.4;50.1;3.1;17.8;-0.8;Yes;Pluvial;Meand tortous;35;310;Gravel/Pebble/Cobble;Central Highlands;T.3;0;Cottus gobio;55;55;0;1200;Wading;Main channel;Permanent;No
+DE0003;20;8;2006;10.4;50.1;3.1;17.8;-0.8;Yes;Pluvial;Meand tortous;35;310;Gravel/Pebble/Cobble;Central Highlands;T.3;0;Barbatula barbatula;40;40;0;1200;Wading;Main channel;Permanent;No
+DE0003;20;8;2006;10.4;50.1;3.1;17.8;-0.8;Yes;Pluvial;Meand tortous;35;310;Gravel/Pebble/Cobble;Central Highlands;T.3;0;Alburnoides bipunctatus;18;18;0;1200;Wading;Main channel;Permanent;No
+DE0003;20;8;2006;10.4;50.1;3.1;17.8;-0.8;Yes;Pluvial;Meand tortous;35;310;Gravel/Pebble/Cobble;Central Highlands;T.3;0;Gobio gobio;25;25;0;1200;Wading;Main channel;Permanent;No
+ES0004;15;9;2008;-4.2;40.3;2.0;24.5;5.5;No;Pluvial;Braided;60;800;Gravel/Pebble/Cobble;Iberian Peninsula;T.15;1;Barbus barbus;14;8;6;900;Wading;Mixed;Permanent;No
+ES0004;15;9;2008;-4.2;40.3;2.0;24.5;5.5;No;Pluvial;Braided;60;800;Gravel/Pebble/Cobble;Iberian Peninsula;T.15;1;Gobio gobio;9;9;0;900;Wading;Mixed;Permanent;No
+ES0004;15;9;2008;-4.2;40.3;2.0;24.5;5.5;No;Pluvial;Braided;60;800;Gravel/Pebble/Cobble;Iberian Peninsula;T.15;1;Anguilla anguilla;2;0;2;900;Wading;Mixed;Permanent;No
+PL0005;1;7;2008;19.8;52.3;0.5;18.6;-3.0;Yes;Pluvial;Naturally constraint no mob;80;950;Sand;Central Plains;T.6;0;Rutilus rutilus;10;10;0;1500;Wading;Main channel;Permanent;No
+PL0005;1;7;2008;19.8;52.3;0.5;18.6;-3.0;Yes;Pluvial;Naturally constraint no mob;80;950;Sand;Central Plains;T.6;0;Perca fluviatilis;6;6;0;1500;Wading;Main channel;Permanent;No
+PL0005;1;7;2008;19.8;52.3;0.5;18.6;-3.0;Yes;Pluvial;Naturally constraint no mob;80;950;Sand;Central Plains;T.6;0;Esox lucius;2;1;1;1500;Wading;Main channel;Permanent;No

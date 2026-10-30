@@ -1,0 +1,6 @@
+pandas>=2.0
+openpyxl>=3.1
+streamlit>=1.45
+altair>=5
+nicegui>=2.0
+pytest
