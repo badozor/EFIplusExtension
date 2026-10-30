@@ -32,7 +32,7 @@ Contents
 | Software | Version tested | Notes |
 |---|---|---|
 | Python | 3.13 | |
-| R | 4.3.3 | Package MASS (installed with R). `Rscript` must be available. |
+| R | 4.3.3, 4.5.3, 4.6.2 (Linux) | Package MASS (installed with R). `Rscript` must be available. |
 | Python packages | see `requirements.txt` | NiceGUI 3 is required. |
 
 Older versions were not tested.

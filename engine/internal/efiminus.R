@@ -562,6 +562,18 @@ IDScoring <- function(distmet,stdpack,labels){
 }
 ####### 01/07/09 15:44:25
 ClassifIDScoring <- function(object,qclassobject,labels=names(object),...){
+# [v1.3 compat] stdpacklength has no 'qclass' (NULL): R <= 4.5 returned NA for
+# cut(x, NULL), R >= 4.6 stops with "invalid 'breaks' argument". Return NA as before.
+# These per-metric classes were experimental work and are not part of the final output.
+  if(is.null(qclassobject)){
+    if(inherits(object,"data.frame")){
+      wclass <- as.data.frame(matrix(NA_real_,nrow(object),length(labels),dimnames=list(row.names(object),labels)))
+    }else{
+      wclass <- rep(NA_real_,length(object))
+      names(wclass) <- names(object)
+    }
+    return(wclass)
+  }
   if(inherits(object,"data.frame")){
     if(length(labels) >1){
       wclass <- as.data.frame(sapply(labels,

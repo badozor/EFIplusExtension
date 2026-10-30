@@ -66,7 +66,8 @@ The engine shipped in `engine/` is efitools-1.3 (details in `engine/CHANGES.txt`
   paths accepted; arguments read with `commandArgs(trailingOnly = TRUE)` (works with
   `Rscript`); `comment.char = "£"` replaced by `""` (refused by R 4.x in UTF-8).
 
-Tested with R 4.3.3. No comparison with R 2.8.1 (the version used in 2009) was possible here.
+Engine tested on Linux with R 4.3.3, 4.5.3 and 4.6.2 (identical output). Windows not tested yet.
+No comparison with R 2.8.1 (the version used in 2009) was possible here.
 
 ## Known limitations (not corrected)
 

@@ -21,6 +21,14 @@ Compatibility (R >= 4, UTF-8, Rscript); the computation is unchanged
 - main.R, maindiad.R: comment.char = "£" / "¤" replaced by comment.char = "".
   In a UTF-8 locale these characters take two bytes and R 4.x refuses them.
 - All text files re-encoded from ISO-8859-1 to UTF-8, Unix line endings.
+- internal/efiminus.R, ClassifIDScoring(): returns NA when the class limits
+  are missing. stdpacklength has no 'qclass': R <= 4.5 returned NA for
+  cut(x, NULL), R >= 4.6 stops with "invalid 'breaks' argument". These
+  per-metric classes were experimental work and are not in the final output.
+- internal/diadromousplus.txt: non-breaking space (U+00A0) in the header
+  "Alosa immaculata historic/present" replaced by a normal space. In a
+  latin-1 locale (Windows, R < 4.2) the UTF-8 bytes changed the column name
+  and maindiad.R stopped with "undefined columns selected".
 
 Not changed (known issue)
 - internal/efiminus.R, commentDate(): the test 'month > 11 & month < 8' is
@@ -32,8 +40,8 @@ Usage
 Run from the efitools-1.3 folder, or set EFI_DIR to that folder.
 Argument order of maindiad.R: input, output, diadromous (as in 1.2).
 
-Tested with R 4.3.3 on Linux (5 invented samples, with and without
-diadromous data). Not re-tested with R 2.8.1.
+Tested on Linux with R 4.3.3, 4.5.3 and 4.6.2 (5 invented samples, with and
+without diadromous data): identical output. Not re-tested with R 2.8.1.
 
 
 Version 1.2 (22/04/2009)
