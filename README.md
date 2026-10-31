@@ -6,7 +6,7 @@ Reference version: https://github.com/badozor/EFIplusExtension
 
 
 ## Background
-EFI+ is an EU research project supporting the Water Framework Directive (2007-2009). It replaced the original European Fish Index (EFI, FAME project) with a more accurate, pan-European fish-based index to assess the ecological status of rivers, including large rivers and Central-Eastern and Mediterranean regions, and provided software to compute it (https://cordis.europa.eu/project/id/44096/fr).
+EFI+ is an EU research project supporting the Water Framework Directive (01/01/2007-30/04/2009). It replaced the original European Fish Index (EFI, FAME project) with a more accurate, pan-European fish-based index to assess the ecological status of rivers, including large rivers and Central-Eastern and Mediterranean regions, and provided software to compute it (https://cordis.europa.eu/project/id/44096/fr).
 
 ## Description
 Local web interface to compute the new European Fish Index (EFI+) with the R engine
