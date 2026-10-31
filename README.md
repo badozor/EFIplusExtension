@@ -1,11 +1,14 @@
 # EFI+ calculator (Python GUI for efitools-1.3)
-EFI+ is an EU research project supporting the Water Framework Directive. It replaced the original European Fish Index (EFI, FAME project) with a more accurate, pan-European fish-based index to assess the ecological status of rivers, including large rivers and Central-Eastern and Mediterranean regions, and provided software to compute it (https://cordis.europa.eu/project/id/44096/fr).
 
-
-> Développé avec l’aide de l’IA (Claude, Anthropic), sous la relecture active de Pierre Bady.
+> Developed with AI assistance (Claude, Anthropic) and actively reviewed by Pierre Bady.
 
 Reference version: https://github.com/badozor/EFIplusExtension
 
+
+## Background
+EFI+ is an EU research project supporting the Water Framework Directive. It replaced the original European Fish Index (EFI, FAME project) with a more accurate, pan-European fish-based index to assess the ecological status of rivers, including large rivers and Central-Eastern and Mediterranean regions, and provided software to compute it (https://cordis.europa.eu/project/id/44096/fr).
+
+## Description
 Local web interface to compute the new European Fish Index (EFI+) with the R engine
 **efitools-1.3**, following Part II of the *Manual for the application of the new European
 Fish Index – EFI+* (June 2009): data input (Excel file or manual form), checks, "Run script",
@@ -118,7 +121,7 @@ python -m pytest tests/
 
 ## Credits
 
-Développé avec l’aide de l’IA (Claude, Anthropic), sous la relecture active de Pierre Bady.
+Developed with AI assistance (Claude, Anthropic) and actively reviewed by Pierre Bady.
 
 The EFI+ logo in `assets/` is the logo of the EFI+ project (EFI+ consortium, EC contract 044096),
 taken from the cover of the EFI+ application manual (2009). It is used to identify the project.
