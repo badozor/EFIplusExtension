@@ -1,4 +1,4 @@
-# EFI+ calculator (Python GUI for efitools-1.3) <img src="assets/efiplus_hex.png" align="right" width="160" alt="EFI+ GUI extension hex logo"/>
+# EFI+ calculator (Python GUI for efitools-1.3) <img src="assets/efiplus_hex.png" align="right" width="160" alt="EFI+ GUI extension hex logo: brown trout and common carp"/>
 
 > Developed with AI assistance (Claude, Anthropic) and actively reviewed by Pierre Bady.
 
