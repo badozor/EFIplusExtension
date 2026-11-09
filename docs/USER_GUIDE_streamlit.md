@@ -170,6 +170,12 @@ GeoJSON file is also accepted.
 
 The 5 km and 10 km thresholds are choices of this GUI, not values of the EFI+ manual.
 
+**Mediterranean region.** The map has no Mediterranean polygon. As in EFI+, the engine moves a
+site to the Mediterranean region when **Mediterranean type = 1**, **latitude < 45°** and the
+ecoregion is **Iberian Peninsula, Italy or Western Plains**. A warning appears when
+Mediterranean type = 1 but one of the two other conditions is not met: the engine then ignores
+the Mediterranean type. The Mediterranean type itself cannot be derived from the coordinates.
+
 ### 4.3 Upload
 
 1. Drop the file on the upload area, or click **Browse files**.

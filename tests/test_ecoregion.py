@@ -142,3 +142,15 @@ def test_bundled_layer_fills_example(bundled):
     assert res.ok, res.issues_frame()
     assert res.input1.groupby("Site.code")["Ecoreg"].first().to_dict() == \
         example_input1().groupby("Site.code")["Ecoreg"].first().to_dict()
+
+
+def test_mediterranean_type_ignored_warning():
+    def medit_issues(**kw):
+        res = validate.check(_sample(**kw))
+        return [i for i in res.issues if i.column == "Medit"]
+    assert not medit_issues(Medit=1, Latitude=43.5)                      # W.p, lat < 45: Med region
+    assert not medit_issues(Medit=0, Latitude=48.2)                      # not Mediterranean type 1
+    iss = medit_issues(Medit=1)                                          # FR0002: latitude 48.2
+    assert len(iss) == 1 and iss[0].level == "warning" and "latitude 48.2" in iss[0].message
+    iss = medit_issues(Medit=1, Ecoreg="Alps", Latitude=44.0)            # wrong ecoregion
+    assert len(iss) == 1 and "ecoregion 'Alps'" in iss[0].message

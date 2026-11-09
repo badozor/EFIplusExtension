@@ -170,6 +170,7 @@ def check_input1(df: pd.DataFrame, sheet: str = S.SHEET_INPUT1) -> tuple[pd.Data
         out[v.name] = col
 
     issues += _check_ecoregions(out, sheet)
+    issues += _check_mediterranean(out, sheet)
 
     # Length classes must add up to the total of run 1 (checked by ValidatedLength in R).
     for r in out.index:
@@ -254,6 +255,32 @@ def _check_ecoregions(out: pd.DataFrame, sheet: str) -> list[Issue]:
             extra = ", not covered by EFI+" if hit.efi_name is None else ""
             issues.append(Issue(sheet, r0, "Ecoreg", given, "warning",
                                 f"The coordinates are in {hit.label()}{extra}: check the ecoregion or the coordinates."))
+    return issues
+
+
+# Ecoregions that efiminus.R (prepRegEco) moves to the Mediterranean region "Med".
+MED_ECOREGIONS = ("Iberian Peninsula", "Italy", "Western Plains")
+
+
+def _check_mediterranean(out: pd.DataFrame, sheet: str) -> list[Issue]:
+    """Medit = 1 is used by the engine only with latitude < 45 and Ibe, Ita or W.p (one message per sample)."""
+    issues: list[Issue] = []
+    key = out[S.KEY_COLUMNS].astype(str).agg("_".join, axis=1)
+    for _, rows in out.groupby(key, sort=False).groups.items():
+        r0 = rows[0]
+        if out.at[r0, "Medit"] != 1:
+            continue
+        lat, eco = out.at[r0, "Latitude"], out.at[r0, "Ecoreg"]
+        why = []
+        if _isnum(lat) and lat != S.NA_NUM and lat >= 45:
+            why.append(f"latitude {lat:g} ≥ 45")
+        if eco in S.ECOREGIONS and eco not in MED_ECOREGIONS:
+            why.append(f"ecoregion '{eco}'")
+        if why:
+            issues.append(Issue(sheet, r0, "Medit", "1", "warning",
+                                "Mediterranean type 1 ignored by the engine (" + ", ".join(why) + "): the site is not "
+                                "moved to the Mediterranean region, which needs latitude < 45 and the ecoregion "
+                                "Iberian Peninsula, Italy or Western Plains."))
     return issues
 
 
