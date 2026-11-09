@@ -17,7 +17,7 @@ STAR_STRIPE_CSS = "linear-gradient(90deg, " + ", ".join(
     f"{c} {i * 20}% {(i + 1) * 20}%" for i, c in enumerate(S.CLASS_COLORS.values())) + ")"
 
 APP_TITLE = "EFI+ calculator"
-APP_SUBTITLE = "New European Fish Index (EFI+), computed with the R engine efitools-1.3"
+APP_SUBTITLE = "European Fish Index (EFI+), computed with the R engine efitools-1.3"
 
 WORKFLOW = [
     ("Insert data", "Upload the EFI+ Excel spreadsheet (several samples) or type one sample at a time."),

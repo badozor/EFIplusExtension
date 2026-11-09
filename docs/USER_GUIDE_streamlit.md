@@ -1,4 +1,4 @@
-# EFI+ calculator – User guide (Streamlit version)
+# EFI+ calculator – User guide (Streamlit version) <img src="../assets/efiplus_hex.png" align="right" width="120" alt="EFI+ GUI extension hex logo"/>
 
 > Développé avec l’aide de l’IA (Claude, Anthropic), sous la relecture active de Pierre Bady.
 
@@ -69,7 +69,7 @@ To stop the application, close the terminal window or press `Ctrl+C` in it.
 
 ![Home page](img/streamlit/01_home.png)
 
-- **Sidebar (left)**: EFI+ logo, application name, version of the GUI and of the engine, and
+- **Sidebar (left)**: hex logo of the GUI (brown trout and common carp), application name, version of the GUI and of the engine, and
   the menu: Home, Insert data: Excel file, Insert data: manual, Check and run, Results, Help.
   The `«` button hides the sidebar; `»` shows it again.
 - **R engine (sidebar)**: path to `Rscript` and R version.

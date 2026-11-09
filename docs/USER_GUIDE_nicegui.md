@@ -1,4 +1,4 @@
-# EFI+ calculator – User guide (NiceGUI version)
+# EFI+ calculator – User guide (NiceGUI version) <img src="../assets/efiplus_hex.png" align="right" width="120" alt="EFI+ GUI extension hex logo"/>
 
 > Développé avec l’aide de l’IA (Claude, Anthropic), sous la relecture active de Pierre Bady.
 
@@ -70,7 +70,7 @@ To stop the application, close the terminal window or press `Ctrl+C` in it.
 
 ![Home page](img/nicegui/01_home.png)
 
-- **Header**: EFI+ logo, application name, version of the GUI and of the engine. The coloured
+- **Header**: hex logo of the GUI (brown trout and common carp), application name, version of the GUI and of the engine. The coloured
   band repeats the colours of the five ecological classes.
 - **Menu (left)**: Home, Insert data: Excel, Insert data: manual, Check and run, Results, Help.
   The ☰ button hides or shows the menu.
