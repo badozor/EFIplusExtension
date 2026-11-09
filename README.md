@@ -52,12 +52,16 @@ Two front-ends share the same core (`efiplus/`):
 
 ```
 app_streamlit.py, app_nicegui.py   front-ends
-efiplus/                           core: schema, validate, engine, excel_io, ui_common, examples
+efiplus/                           core: schema, validate, engine, excel_io, ui_common, examples, ecoregion
+efiplus/data/ecoregions_illies.geojson  EFI+ layer of the 25 Illies ecoregions (from archive/ECOREG1.rar)
+tools/build_ecoregions.py          rebuilds the GeoJSON from the shapefile
+local/ecoregions/                  optional other ecoregion layer (ignored by git)
 engine/                            efitools-1.3 (main.R, maindiad.R, internal/, CHANGES.txt)
 assets/                            EFI+ project logo (EFI+ consortium), hex logo of this GUI, favicon
 archive/                           original files (efitools-1.2.rar, EFI+ manual, deliverables D4.1-D4.2, EfitoolsDoc-1.1)
 docs/                              user guides, screenshots, PDF documents shown in Help
 tests/test_core.py                 pytest: checks, engine run, Excel round trip
+tests/test_ecoregion.py            pytest: ecoregion from the coordinates
 ```
 
 ## efitools-1.3
@@ -94,7 +98,13 @@ Observed with R 4.3.3 on the example data. Details in the user guides, section 1
   the manual. The GUI accepts `T.1` … `T.15` and `T.NA`; only T.5, T.6, T.14, T.15 change the
   result (Cyprinid). The list of valid types should be confirmed.
 - Year range: Table 16 says 1950–2020; the GUI accepts up to the current year.
-- The example data (`efiplus/examples.py`) are invented to show the workflow.
+- The example data (`efiplus/examples.py`) are invented to show the workflow. CH0001 was moved
+  to 7.9 E, 46.7 N so that its coordinates fall in the Alps, as its ecoregion says.
+- Ecoregion from the coordinates: the GUI uses the EFI+ layer `Ecoregions_Project_WGS84.shp`
+  (`archive/ECOREG1.rar`, the "SIG table" quoted in `efiminus.R`). The non-clipped layer is used,
+  so that coastal sites fall in a polygon. Another layer can replace it (sidebar,
+  `EFI_ECOREG_LAYER`, or `local/ecoregions/`). The 5 km
+  (near a border) and 10 km (outside the map) thresholds are choices of this GUI.
 
 ## Documents
 
@@ -105,7 +115,13 @@ Observed with R 4.3.3 on the example data. Details in the user guides, section 1
 - `Manual_for_the_application_of_the_new_European_Fish_Index_EFIplus.pdf`: manual for the
   application of the new European Fish Index – EFI+ (EFI+ consortium, June 2009);
 - `EFIDeliverablesD4.1andD4.2WP42009-03-01.pdf`: EFI+ deliverables D4.1 and D4.2, WP4 (2009);
-- `EfitoolsDoc-1.1.pdf`: documentation of efitools 1.1 (P. Bady, M. Logez, D. Pont).
+- `EfitoolsDoc-1.1.pdf`: documentation of efitools 1.1 (P. Bady, M. Logez, D. Pont);
+- `ECOREG1.rar`: GIS layer of the EFI+ project (ESRI shapefiles, WGS84, 2008), full and clipped
+  to the coastline. It maps the 25 ecoregions of Illies (1978) used by the Water Framework
+  Directive (Directive 2000/60/EC, Annex XI, Map A: ecoregions for rivers and lakes).
+  Illies J. (ed.) (1978). *Limnofauna Europaea*, 2nd edition. Gustav Fischer Verlag, Stuttgart.
+  See also EEA, *Ecoregions for rivers and lakes* (shapefile,
+  https://www.eea.europa.eu/data-and-maps/data/ecoregions-for-rivers-and-lakes/zip-compressed-shape-file-vector-data-polygon).
 
 `docs/` contains the user guides (`USER_GUIDE_nicegui.md`, `USER_GUIDE_streamlit.md`, screenshots
 in `docs/img/`). PDF files placed in `docs/` (for example copies of the documents of `archive/`) are
@@ -134,5 +150,5 @@ GNU General Public License, version 2 or (at your option) any later version
 Copyright (C) 2008-2009, 2026 Pierre Bady (efitools: Pierre Bady, Maxime Logez, Didier Pont).
 
 `EfitoolsDoc-1.1.pdf` is documentation of efitools (P. Bady, M. Logez, D. Pont).
-The PDF documents of the EFI+ consortium in `archive/` and the EFI+ logo `assets/efiplus_logo.png` are not
-covered by this licence.
+The PDF documents of the EFI+ consortium in `archive/`, the ecoregion layer of the EFI+ project
+(`archive/ECOREG1.rar` and `efiplus/data/ecoregions_illies.geojson`) and the EFI+ logo `assets/efiplus_logo.png` are not covered by this licence.

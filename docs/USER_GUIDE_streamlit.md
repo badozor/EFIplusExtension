@@ -136,9 +136,45 @@ Help built into the spreadsheet:
   `Total.number.run1`.
 - **Diadromous species** (`input2`): `Yes`, `No` or `NoData` for each `historic` and `present`
   column. A row of `input2` must have the same Site code and date as a sample of `input1`.
+- **Ecoregion** (`Ecoreg`): can be left empty. It is then assigned from the coordinates (see
+  [Ecoregion from the coordinates](#ecoregion-from-the-coordinates)). The Illies number (`1`–`25`)
+  and the names of the GIS layer (`England`, `Italy and Corsica`, …) are also accepted.
 
 The allowed values of every variable are listed in Help › Input variables (Tables 14 and 16 of
 the manual).
+
+### Ecoregion from the coordinates
+
+The GUI contains the map of the Illies ecoregions (WFD, Annex XI) used by the EFI+ project. The
+sidebar shows **Ecoregion map: EFI+ layer (built in)**.
+
+Another layer can replace it:
+
+- **Sidebar › Ecoregion map › Other ecoregion layer**, or
+- environment variable `EFI_ECOREG_LAYER`, or
+- copy the files of the layer (`.shp`, `.shx`, `.dbf`, `.prj`) to the folder `local/ecoregions/`.
+
+The layer must contain polygons and an attribute `AREA_ID` with the Illies number (1–25). A
+GeoJSON file is also accepted.
+
+- **Ecoregion empty**: it is assigned from Longitude and Latitude. A warning gives the ecoregion
+  found.
+- **Ecoregion given**: it is kept. A warning appears when the coordinates fall in another
+  ecoregion, except for sites less than 5 km from the border of the given ecoregion.
+- **Site less than 5 km from another ecoregion**: the warning asks to check the ecoregion. The
+  map is coarse.
+- **Site outside the map** (sea, coast) but less than 10 km from it: the nearest ecoregion is
+  used.
+- **Site in an ecoregion not covered by EFI+** (Ireland, Iceland, Balkans 5–7, Caucasus, Caspic
+  depression, Taiga, Tundra): error. efitools only knows 16 of the 25 Illies ecoregions.
+
+The 5 km and 10 km thresholds are choices of this GUI, not values of the EFI+ manual.
+
+**Mediterranean region.** The map has no Mediterranean polygon. As in EFI+, the engine moves a
+site to the Mediterranean region when **Mediterranean type = 1**, **latitude < 45°** and the
+ecoregion is **Iberian Peninsula, Italy or Western Plains**. A warning appears when
+Mediterranean type = 1 but one of the two other conditions is not met: the engine then ignores
+the Mediterranean type. The Mediterranean type itself cannot be derived from the coordinates.
 
 ### 4.3 Upload
 
@@ -167,6 +203,8 @@ Use this page for a few samples. Each sample is entered once, then added to a li
 - Number fields accept only values within the allowed range (Table 16). An empty field means a
   missing value.
 - **Sampling date**: choose the date in the calendar (format DD/MM/YYYY).
+- **Ecoregion**: filled from the map as soon as Longitude and Latitude are typed. The line
+  below the field gives the Illies ecoregion found. It can still be changed by hand.
 
 ### 5.2 Fish caught in run 1
 

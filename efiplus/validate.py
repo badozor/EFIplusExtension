@@ -10,6 +10,7 @@ from dataclasses import dataclass, asdict
 
 import pandas as pd
 
+from . import ecoregion
 from . import schema as S
 
 
@@ -112,7 +113,9 @@ def check_input1(df: pd.DataFrame, sheet: str = S.SHEET_INPUT1) -> tuple[pd.Data
                                             "Missing value (coded -999)."))
                     col.append(S.NA_NUM)
                 else:
-                    if v.name in ("Site.code", "Species", "Ecoreg", "Eft.type"):
+                    if v.name == "Ecoreg":
+                        pass  # assigned from the coordinates or reported by _check_ecoregions
+                    elif v.name in ("Site.code", "Species", "Eft.type"):
                         issues.append(Issue(sheet, r, v.name, "", "error", "Missing value."))
                     elif v.mandatory:
                         issues.append(Issue(sheet, r, v.name, "", "warning", "Missing value (coded NoData)."))
@@ -166,6 +169,9 @@ def check_input1(df: pd.DataFrame, sheet: str = S.SHEET_INPUT1) -> tuple[pd.Data
                 col.append(s)
         out[v.name] = col
 
+    issues += _check_ecoregions(out, sheet)
+    issues += _check_mediterranean(out, sheet)
+
     # Length classes must add up to the total of run 1 (checked by ValidatedLength in R).
     for r in out.index:
         t, b, o = (out.at[r, c] for c in ("Total.number.run1", "Number.length.below.150", "Number.length.over.150"))
@@ -205,6 +211,78 @@ def check_input1(df: pd.DataFrame, sheet: str = S.SHEET_INPUT1) -> tuple[pd.Data
             issues.append(Issue(sheet, r, "Month", str(m), "warning",
                                 "Outside the EFI+ sampling period (August to November)."))
     return out, _dedupe_month_warnings(issues, out)
+
+
+def _coords_ok(lon, lat) -> bool:
+    vl, va = S.VAR_BY_NAME["Longitude"], S.VAR_BY_NAME["Latitude"]
+    return (_isnum(lon) and _isnum(lat) and S.NA_NUM not in (lon, lat)
+            and vl.vmin <= lon <= vl.vmax and va.vmin <= lat <= va.vmax)
+
+
+def _check_ecoregions(out: pd.DataFrame, sheet: str) -> list[Issue]:
+    """Fill a missing ecoregion from the coordinates, flag disagreements (one message per sample)."""
+    issues: list[Issue] = []
+    use_map = ecoregion.available()
+    key = out[S.KEY_COLUMNS].astype(str).agg("_".join, axis=1)
+    for k, rows in out.groupby(key, sort=False).groups.items():
+        r0 = rows[0]
+        given = out.at[r0, "Ecoreg"]
+        lon, lat = out.at[r0, "Longitude"], out.at[r0, "Latitude"]
+        hit = ecoregion.lookup(lon, lat) if use_map and _coords_ok(lon, lat) else None
+        if given == S.NODATA:
+            if hit is None:
+                msg = "Missing value." + (" Give valid coordinates to assign it from the map." if use_map else "")
+                issues.append(Issue(sheet, r0, "Ecoreg", "", "error", msg))
+            elif not hit.found:
+                issues.append(Issue(sheet, r0, "Ecoreg", "", "error",
+                                    f"Missing value, and no ecoregion within {hit.outside_km:g} km of the coordinates."))
+            elif hit.efi_name is None:
+                issues.append(Issue(sheet, r0, "Ecoreg", "", "error",
+                                    f"Missing value. The coordinates are in {hit.label()}, not covered by EFI+."))
+            else:
+                empty = [r for r in rows if out.at[r, "Ecoreg"] == S.NODATA]
+                out.loc[empty, "Ecoreg"] = hit.efi_name   # rows typed by the user are kept
+                msg = f"Assigned from the coordinates: '{hit.efi_name}' ({hit.label()})."
+                if hit.outside_km:
+                    msg += f" Site {hit.outside_km:g} km outside the map: nearest ecoregion."
+                if hit.neighbours:
+                    n, d = hit.neighbours[0]
+                    msg += (f" Site {d:g} km from Illies {n} '{ecoregion.illies_name(n)}'"
+                            ": check the ecoregion.")
+                issues.append(Issue(sheet, r0, "Ecoreg", hit.efi_name, "warning", msg))
+        elif given in S.ECOREGIONS and hit is not None and hit.found and hit.efi_name != given:
+            if ecoregion.EFI_TO_ILLIES[given] in {n for n, _ in hit.neighbours}:
+                continue  # site close to the border of the given ecoregion: accepted
+            extra = ", not covered by EFI+" if hit.efi_name is None else ""
+            issues.append(Issue(sheet, r0, "Ecoreg", given, "warning",
+                                f"The coordinates are in {hit.label()}{extra}: check the ecoregion or the coordinates."))
+    return issues
+
+
+# Ecoregions that efiminus.R (prepRegEco) moves to the Mediterranean region "Med".
+MED_ECOREGIONS = ("Iberian Peninsula", "Italy", "Western Plains")
+
+
+def _check_mediterranean(out: pd.DataFrame, sheet: str) -> list[Issue]:
+    """Medit = 1 is used by the engine only with latitude < 45 and Ibe, Ita or W.p (one message per sample)."""
+    issues: list[Issue] = []
+    key = out[S.KEY_COLUMNS].astype(str).agg("_".join, axis=1)
+    for _, rows in out.groupby(key, sort=False).groups.items():
+        r0 = rows[0]
+        if out.at[r0, "Medit"] != 1:
+            continue
+        lat, eco = out.at[r0, "Latitude"], out.at[r0, "Ecoreg"]
+        why = []
+        if _isnum(lat) and lat != S.NA_NUM and lat >= 45:
+            why.append(f"latitude {lat:g} ≥ 45")
+        if eco in S.ECOREGIONS and eco not in MED_ECOREGIONS:
+            why.append(f"ecoregion '{eco}'")
+        if why:
+            issues.append(Issue(sheet, r0, "Medit", "1", "warning",
+                                "Mediterranean type 1 ignored by the engine (" + ", ".join(why) + "): the site is not "
+                                "moved to the Mediterranean region, which needs latitude < 45 and the ecoregion "
+                                "Iberian Peninsula, Italy or Western Plains."))
+    return issues
 
 
 def _dedupe_month_warnings(issues: list[Issue], out: pd.DataFrame) -> list[Issue]:

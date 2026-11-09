@@ -1,7 +1,7 @@
 Site.code;Day;Month;Year;Longitude;Latitude;Actual.river.slope;Temp.jul;Temp.jan;Floodplain.site;Water.source.type;Geomorph.river.type;Distance.from.source;Area.ctch;Natural.sediment;Ecoreg;Eft.type;Medit;Species;Total.number.run1;Number.length.below.150;Number.length.over.150;Fished.area;Method;Sampling.location;Flow.regime;Lakes.upstream
-CH0001;12;9;2007;7.1;46.9;8.5;16.5;-1.5;No;Nival;Sinuous;12;45;Gravel/Pebble/Cobble;Alps;T.1;0;Salmo trutta fario;85;60;25;600;Wading;Main channel;Permanent;No
-CH0001;12;9;2007;7.1;46.9;8.5;16.5;-1.5;No;Nival;Sinuous;12;45;Gravel/Pebble/Cobble;Alps;T.1;0;Cottus gobio;40;40;0;600;Wading;Main channel;Permanent;No
-CH0001;12;9;2007;7.1;46.9;8.5;16.5;-1.5;No;Nival;Sinuous;12;45;Gravel/Pebble/Cobble;Alps;T.1;0;Phoxinus phoxinus;22;22;0;600;Wading;Main channel;Permanent;No
+CH0001;12;9;2007;7.9;46.7;8.5;16.5;-1.5;No;Nival;Sinuous;12;45;Gravel/Pebble/Cobble;Alps;T.1;0;Salmo trutta fario;85;60;25;600;Wading;Main channel;Permanent;No
+CH0001;12;9;2007;7.9;46.7;8.5;16.5;-1.5;No;Nival;Sinuous;12;45;Gravel/Pebble/Cobble;Alps;T.1;0;Cottus gobio;40;40;0;600;Wading;Main channel;Permanent;No
+CH0001;12;9;2007;7.9;46.7;8.5;16.5;-1.5;No;Nival;Sinuous;12;45;Gravel/Pebble/Cobble;Alps;T.1;0;Phoxinus phoxinus;22;22;0;600;Wading;Main channel;Permanent;No
 FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Rutilus rutilus;120;110;10;3500;Boat;Main channel;Permanent;No
 FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Abramis brama;15;5;10;3500;Boat;Main channel;Permanent;No
 FR0002;3;10;2008;2.5;48.2;0.8;19.5;3.2;Yes;Pluvial;Meand regular;140;2100;Sand;Western Plains;T.15;0;Perca fluviatilis;30;25;5;3500;Boat;Main channel;Permanent;No
