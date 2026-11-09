@@ -135,9 +135,9 @@ def show_r_inputs(res: validate.CheckResult):
 
 # ---------------------------------------------------------------- pages
 def page_home():
-    c_logo, c_txt = st.columns([1, 3], vertical_alignment="center")
-    if U.LOGO.is_file():
-        c_logo.image(str(U.LOGO), width=260)
+    c_logo, c_txt = st.columns([1, 5], vertical_alignment="center")
+    if U.HEX_LOGO.is_file():
+        c_logo.image(str(U.HEX_LOGO), width=130)
     c_txt.title(U.APP_TITLE)
     c_txt.markdown(U.APP_SUBTITLE)
     c_txt.caption("Improvement and Spatial Extension of the European Fish Index (EFI+ project, EC contract 044096)")
