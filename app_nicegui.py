@@ -123,7 +123,10 @@ def main_page():
         @ui.refreshable
         def e_status():
             ok, msg = ecoregion.status(e_input.value)
-            ui.label(("✅ " if ok else "ℹ️ ") + msg).classes(("text-positive" if ok else "text-grey-7") + " text-caption")
+            if msg.startswith("File not found"):
+                ui.label("⚠️ " + msg).classes("text-warning text-caption")
+            else:
+                ui.label(("✅ " if ok else "ℹ️ ") + msg).classes(("text-positive" if ok else "text-grey-7") + " text-caption")
         e_status()
 
         def set_ecolayer():

@@ -135,7 +135,11 @@ def status(user_path: str | None = None) -> tuple[bool, str]:
     except Exception as e:  # noqa: BLE001
         return False, f"The ecoregion layer cannot be read: {e}"
     where = "EFI+ layer (built in)" if p == BUNDLED else p.name
-    return True, f"{where}: {len(set(ids))} ecoregions."
+    msg = f"{where}: {len(set(ids))} ecoregions."
+    asked = user_path or _user_path
+    if asked and not Path(asked).expanduser().is_file():
+        msg = f"File not found: {asked}. Using {msg}"
+    return True, msg
 
 
 def available() -> bool:

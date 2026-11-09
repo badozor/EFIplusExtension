@@ -240,7 +240,8 @@ def _check_ecoregions(out: pd.DataFrame, sheet: str) -> list[Issue]:
                 issues.append(Issue(sheet, r0, "Ecoreg", "", "error",
                                     f"Missing value. The coordinates are in {hit.label()}, not covered by EFI+."))
             else:
-                out.loc[rows, "Ecoreg"] = hit.efi_name
+                empty = [r for r in rows if out.at[r, "Ecoreg"] == S.NODATA]
+                out.loc[empty, "Ecoreg"] = hit.efi_name   # rows typed by the user are kept
                 msg = f"Assigned from the coordinates: '{hit.efi_name}' ({hit.label()})."
                 if hit.outside_km:
                     msg += f" Site {hit.outside_km:g} km outside the map: nearest ecoregion."

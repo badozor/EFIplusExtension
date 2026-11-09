@@ -74,7 +74,10 @@ with st.sidebar:
                                 help="Optional. Polygon layer of the Illies ecoregions (.shp or .geojson, attribute AREA_ID = Illies number) that replaces the EFI+ layer built into the GUI. Can also be set with EFI_ECOREG_LAYER or by copying the layer to local/ecoregions/.")
     ecoregion.set_layer(ss.ecolayer)
     eco_ok, eco_msg = ecoregion.status()
-    (st.success if eco_ok else st.info)(eco_msg, icon="✅" if eco_ok else "ℹ️")
+    if eco_msg.startswith("File not found"):
+        st.warning(eco_msg, icon="⚠️")
+    else:
+        (st.success if eco_ok else st.info)(eco_msg, icon="✅" if eco_ok else "ℹ️")
     if ss.source:
         st.divider()
         st.markdown(f"**Current dataset**  \n{ss.source}")

@@ -154,3 +154,16 @@ def test_mediterranean_type_ignored_warning():
     assert len(iss) == 1 and iss[0].level == "warning" and "latitude 48.2" in iss[0].message
     iss = medit_issues(Medit=1, Ecoreg="Alps", Latitude=44.0)            # wrong ecoregion
     assert len(iss) == 1 and "ecoregion 'Alps'" in iss[0].message
+
+
+def test_fill_keeps_typed_rows_and_reports_inconsistency(layer):
+    df = _sample(Ecoreg="")
+    df.iloc[1, df.columns.get_loc("Ecoreg")] = "Alps"                # one species row typed differently
+    res = validate.check(df)
+    assert res.input1["Ecoreg"].tolist().count("Alps") == 1         # typed value not overwritten
+    assert any(i.column == "Ecoreg" and i.message.startswith("Different values") for i in res.errors)
+
+
+def test_status_reports_missing_file(bundled):
+    ok, msg = E.status("/no/such/layer.shp")
+    assert ok and msg.startswith("File not found") and "EFI+ layer (built in)" in msg
