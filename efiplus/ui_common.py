@@ -10,7 +10,8 @@ from . import schema as S
 ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = ROOT / "docs"
 ASSETS_DIR = ROOT / "assets"
-LOGO = ASSETS_DIR / "efiplus_logo.png"
+LOGO = ASSETS_DIR / "efiplus_logo.png"          # EFI+ consortium logo (Home page)
+HEX_LOGO = ASSETS_DIR / "efiplus_hex.png"       # hex logo of this GUI (header / sidebar)
 FAVICON = ASSETS_DIR / "favicon.png"
 STAR_STRIPE_CSS = "linear-gradient(90deg, " + ", ".join(
     f"{c} {i * 20}% {(i + 1) * 20}%" for i, c in enumerate(S.CLASS_COLORS.values())) + ")"

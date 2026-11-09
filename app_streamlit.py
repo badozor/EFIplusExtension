@@ -12,8 +12,8 @@ import streamlit as st
 from efiplus import __version__, ecoregion, engine, excel_io, schema as S, ui_common as U, validate
 
 st.set_page_config(page_title=U.APP_TITLE, page_icon=str(U.FAVICON) if U.FAVICON.is_file() else "🐟", layout="wide")
-if U.LOGO.is_file():
-    st.logo(str(U.LOGO), size="large")
+if U.HEX_LOGO.is_file():
+    st.logo(str(U.HEX_LOGO), size="large")
 st.markdown(f"""<style>
   header[data-testid="stHeader"]::after {{content:""; position:absolute; left:0; right:0; bottom:0; height:5px;
       background:{U.STAR_STRIPE_CSS};}}

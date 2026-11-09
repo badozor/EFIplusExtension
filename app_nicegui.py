@@ -82,8 +82,8 @@ def main_page():
     with ui.header(elevated=True).classes("efi-header items-center justify-between q-py-xs"):
         with ui.row().classes("items-center gap-3"):
             ui.button(icon="menu", on_click=lambda: drawer.toggle()).props("flat dense").style(f"color:{PRIMARY_DARK}")
-            if U.LOGO.is_file():
-                ui.image("/assets/" + U.LOGO.name).props("fit=contain no-spinner no-transition").style("height:46px;width:100px")
+            if U.HEX_LOGO.is_file():
+                ui.image("/assets/" + U.HEX_LOGO.name).props("fit=contain no-spinner no-transition").style("height:46px;width:40px")
             ui.label(U.APP_TITLE).classes("text-h6 text-weight-medium")
         ui.label(f"GUI v{__version__} · engine efitools-1.3").classes("text-caption text-grey-7")
 
