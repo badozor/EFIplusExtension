@@ -116,9 +116,9 @@ def main_page():
         r_status()
         r_input.on("blur", lambda: (setattr(st, "rscript", r_input.value), r_status.refresh()))
 
-        ui.label("Ecoregion map (optional)").classes("text-subtitle2 q-mt-sm")
-        e_input = ui.input("Path to the ecoregion layer", value=st.ecolayer).classes("w-full").props("dense")
-        e_input.tooltip("Optional. Polygon layer of the Illies ecoregions (.shp or .geojson, attribute AREA_ID = Illies number). Used to fill or check the ecoregion from the coordinates. Can also be set with EFI_ECOREG_LAYER or by copying the layer to local/ecoregions/.")
+        ui.label("Ecoregion map").classes("text-subtitle2 q-mt-sm")
+        e_input = ui.input("Other ecoregion layer (optional)", value=st.ecolayer).classes("w-full").props("dense")
+        e_input.tooltip("Optional. Polygon layer of the Illies ecoregions (.shp or .geojson, attribute AREA_ID = Illies number) that replaces the EFI+ layer built into the GUI. Can also be set with EFI_ECOREG_LAYER or by copying the layer to local/ecoregions/.")
 
         @ui.refreshable
         def e_status():

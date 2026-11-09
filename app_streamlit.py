@@ -69,9 +69,9 @@ with st.sidebar:
         st.error("Rscript not found. Install R from cran.r-project.org.", icon="⛔")
     if missing:
         st.error("Engine files missing: " + ", ".join(missing), icon="⛔")
-    st.markdown("**Ecoregion map** (optional)")
-    ss.ecolayer = st.text_input("Path to the ecoregion layer", ss.ecolayer,
-                                help="Optional. Polygon layer of the Illies ecoregions (.shp or .geojson, attribute AREA_ID = Illies number). Used to fill or check the ecoregion from the coordinates. Can also be set with EFI_ECOREG_LAYER or by copying the layer to local/ecoregions/.")
+    st.markdown("**Ecoregion map**")
+    ss.ecolayer = st.text_input("Other ecoregion layer (optional)", ss.ecolayer,
+                                help="Optional. Polygon layer of the Illies ecoregions (.shp or .geojson, attribute AREA_ID = Illies number) that replaces the EFI+ layer built into the GUI. Can also be set with EFI_ECOREG_LAYER or by copying the layer to local/ecoregions/.")
     ecoregion.set_layer(ss.ecolayer)
     eco_ok, eco_msg = ecoregion.status()
     (st.success if eco_ok else st.info)(eco_msg, icon="✅" if eco_ok else "ℹ️")

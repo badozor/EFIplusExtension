@@ -136,8 +136,7 @@ Help built into the spreadsheet:
   `Total.number.run1`.
 - **Diadromous species** (`input2`): `Yes`, `No` or `NoData` for each `historic` and `present`
   column. A row of `input2` must have the same Site code and date as a sample of `input1`.
-- **Ecoregion** (`Ecoreg`): can be left empty when an ecoregion layer is set. It is then
-  assigned from the coordinates (see
+- **Ecoregion** (`Ecoreg`): can be left empty. It is then assigned from the coordinates (see
   [Ecoregion from the coordinates](#ecoregion-from-the-coordinates)). The Illies number (`1`–`25`)
   and the names of the GIS layer (`England`, `Italy and Corsica`, …) are also accepted.
 
@@ -146,15 +145,17 @@ the manual).
 
 ### Ecoregion from the coordinates
 
-This needs a map of the Illies ecoregions (WFD, Annex XI). No map is shipped with the GUI: the
-layer of the EFI+ project is not public. Give your own layer:
+The GUI contains the map of the Illies ecoregions (WFD, Annex XI) used by the EFI+ project. The
+sidebar shows **Ecoregion map: EFI+ layer (built in)**.
 
-- **Sidebar › Ecoregion map › Path to the ecoregion layer**, or
+Another layer can replace it:
+
+- **Sidebar › Ecoregion map › Other ecoregion layer**, or
 - environment variable `EFI_ECOREG_LAYER`, or
 - copy the files of the layer (`.shp`, `.shx`, `.dbf`, `.prj`) to the folder `local/ecoregions/`.
 
 The layer must contain polygons and an attribute `AREA_ID` with the Illies number (1–25). A
-GeoJSON file is also accepted. Without a layer, the ecoregion must be typed, as before.
+GeoJSON file is also accepted.
 
 - **Ecoregion empty**: it is assigned from Longitude and Latitude. A warning gives the ecoregion
   found.
@@ -196,8 +197,7 @@ Use this page for a few samples. Each sample is entered once, then added to a li
 - Number fields accept only values within the allowed range (Table 16). An empty field means a
   missing value.
 - **Sampling date**: choose the date in the calendar (format DD/MM/YYYY).
-- **Ecoregion**: when an ecoregion layer is set, filled from the map as soon as Longitude and
-  Latitude are typed. The line
+- **Ecoregion**: filled from the map as soon as Longitude and Latitude are typed. The line
   below the field gives the Illies ecoregion found. It can still be changed by hand.
 
 ### 5.2 Fish caught in run 1

@@ -1,14 +1,14 @@
 """Ecoregion of a site from its coordinates (Illies ecoregions, WFD Annex XI).
 
-No map is shipped with the GUI. The user gives a local polygon layer of the
-Illies ecoregions (ESRI shapefile .shp or GeoJSON), for example the layer
-Ecoregions_Project_WGS84.shp of the EFI+ project (ECOREG1), whose names are
-those of the "SIG table" quoted in efiminus.R (prepRegEco).
+The GUI ships the layer of the EFI+ project: data/ecoregions_illies.geojson,
+built from Ecoregions_Project_WGS84.shp (archive/ECOREG1.rar) by
+tools/build_ecoregions.py. Its names are those of the "SIG table" quoted in
+efiminus.R (prepRegEco).
 
-The layer is searched in this order: path given in the GUI, environment
-variable EFI_ECOREG_LAYER, first .shp/.geojson file in the folder local/ecoregions/
-of the GUI (ignored by git). Without a layer the function is disabled and the
-ecoregion must be typed, as before.
+Another polygon layer of the Illies ecoregions (ESRI shapefile .shp or GeoJSON)
+can replace it. The layer is searched in this order: path given in the GUI,
+environment variable EFI_ECOREG_LAYER, first .shp/.geojson file in the folder
+local/ecoregions/ (ignored by git), then the layer shipped with the GUI.
 
 Layer requirements: polygons, one attribute with the Illies number 1-25
 (AREA_ID, ILLIES_ID or ILLIES), optional name (NAME). The coordinate system is
@@ -31,6 +31,7 @@ from functools import lru_cache
 from pathlib import Path
 
 LOCAL_DIR = Path(__file__).resolve().parent.parent / "local" / "ecoregions"
+BUNDLED = Path(__file__).resolve().parent / "data" / "ecoregions_illies.geojson"
 ENV_VAR = "EFI_ECOREG_LAYER"
 ID_FIELDS = ("AREA_ID", "ILLIES_ID", "ILLIES", "illies_id")
 NAME_FIELDS = ("NAME", "name")
@@ -109,7 +110,7 @@ def find_layer(user_path: str | None = None) -> Path | None:
             found = sorted(LOCAL_DIR.glob(pat))
             if found:
                 return found[0].resolve()
-    return None
+    return BUNDLED if BUNDLED.is_file() else None
 
 
 def libs_ok() -> bool:
@@ -133,7 +134,8 @@ def status(user_path: str | None = None) -> tuple[bool, str]:
         ids = _load(str(p), p.stat().st_mtime)[0]
     except Exception as e:  # noqa: BLE001
         return False, f"The ecoregion layer cannot be read: {e}"
-    return True, f"{p.name}: {len(set(ids))} ecoregions."
+    where = "EFI+ layer (built in)" if p == BUNDLED else p.name
+    return True, f"{where}: {len(set(ids))} ecoregions."
 
 
 def available() -> bool:

@@ -89,7 +89,7 @@ INPUT_VARS: tuple[Var, ...] = (
     Var("Natural.sediment", "Former sediment", "cat", "sample",
         choices=("Organic", "Silt", "Sand", "Gravel/Pebble/Cobble", "Boulder/Rock", NODATA)),
     Var("Ecoreg", "Ecoregion (Illies)", "cat", "sample", choices=ECOREGIONS,
-        help="Can be left empty when an ecoregion layer is set: it is then assigned from the coordinates. "
+        help="Can be left empty: it is then assigned from the coordinates (map of the Illies ecoregions of EFI+). "
              "The Illies number (1-25) is also accepted.",
         aliases=ECOREG_ALIASES),
     Var("Eft.type", "European fish type (FAME EFT)", "cat", "sample", choices=EFT_TYPES,

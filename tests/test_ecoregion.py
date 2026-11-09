@@ -1,9 +1,9 @@
 """Ecoregion from the coordinates.
 
-The EFI+ layer is not public: the tests build a small invented layer (squares)
-with the same attributes. Set EFI_ECOREG_LAYER to also test the real layer.
+Most tests use a small invented layer (squares) with the same attributes as the
+EFI+ layer, so that the expected answers are known exactly. The last tests use
+the EFI+ layer shipped with the GUI.
 """
-import os
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -42,6 +42,7 @@ def test_mapping_tables():
 def test_no_layer_disables_the_map(monkeypatch, tmp_path):
     monkeypatch.delenv(E.ENV_VAR, raising=False)
     monkeypatch.setattr(E, "LOCAL_DIR", tmp_path / "none")
+    monkeypatch.setattr(E, "BUNDLED", tmp_path / "none.geojson")
     E.set_layer(None)
     assert not E.available()
     df = example_input1().astype(object)
@@ -110,10 +111,34 @@ def test_missing_coordinates_and_ecoregion(layer):
     assert not res.ok and any(i.level == "error" for i in iss)
 
 
-@pytest.mark.skipif(not os.environ.get(E.ENV_VAR), reason="EFI_ECOREG_LAYER not set (EFI+ layer not public)")
-def test_real_layer_examples():
+@pytest.fixture
+def bundled(monkeypatch, tmp_path):
+    monkeypatch.delenv(E.ENV_VAR, raising=False)
+    monkeypatch.setattr(E, "LOCAL_DIR", tmp_path / "none")
     E.set_layer(None)
+    assert E.find_layer() == E.BUNDLED
+    yield
+
+
+def test_bundled_layer(bundled):
+    ids, names, *_ = E._layer()
+    assert sorted(ids) == list(range(1, 26))
+    assert names[4] == "Alps" and names[18] == "England"
+    assert E.status()[1].startswith("EFI+ layer (built in)")
+
+
+def test_bundled_layer_examples(bundled):
     for code, g in example_input1().groupby("Site.code"):
         r = g.iloc[0]
         assert E.lookup(r.Longitude, r.Latitude).efi_name == r.Ecoreg, code
-    assert E.lookup(-6.26, 53.35).illies_id == 17
+    assert E.lookup(-6.26, 53.35).illies_id == 17                 # Dublin: not in EFI+
+    assert E.lookup(-3.7, 40.4).efi_name == "Iberian Peninsula"   # Madrid
+
+
+def test_bundled_layer_fills_example(bundled):
+    df = example_input1().astype(object)
+    df["Ecoreg"] = ""
+    res = validate.check(df)
+    assert res.ok, res.issues_frame()
+    assert res.input1.groupby("Site.code")["Ecoreg"].first().to_dict() == \
+        example_input1().groupby("Site.code")["Ecoreg"].first().to_dict()
