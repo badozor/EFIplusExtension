@@ -150,8 +150,8 @@ def main_page():
         # ---------------- Home
         with ui.tab_panel(t_home):
             with ui.row().classes("items-center gap-6 no-wrap"):
-                if U.LOGO.is_file():
-                    ui.image("/assets/" + U.LOGO.name).props("fit=contain no-spinner no-transition").style("width:240px;height:115px")
+                if U.HEX_LOGO.is_file():
+                    ui.image("/assets/" + U.HEX_LOGO.name).props("fit=contain no-spinner no-transition").style("width:122px;height:140px")
                 with ui.column().classes("gap-1"):
                     ui.label(U.APP_TITLE).classes("text-h4")
                     ui.label(U.APP_SUBTITLE).classes("text-subtitle1 text-grey-8")
