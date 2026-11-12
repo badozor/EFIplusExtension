@@ -90,5 +90,5 @@
   <polygon points="295.0,512.5 298.1,520.8 306.9,521.1 299.9,526.6 302.3,535.1 295.0,530.2 287.7,535.1 290.1,526.6 283.1,521.1 291.9,520.8" fill="#E09B2F" stroke="#F2F6FB" stroke-width="2" stroke-linejoin="round"/>
   <polygon points="330.0,512.5 333.1,520.8 341.9,521.1 334.9,526.6 337.3,535.1 330.0,530.2 322.7,535.1 325.1,526.6 318.1,521.1 326.9,520.8" fill="#E0262B" stroke="#F2F6FB" stroke-width="2" stroke-linejoin="round"/>
 
-  <polygon points="260,12 508,155 508,446 260,589 12,446 12,155" fill="none" stroke="#1B2A3A" stroke-width="18" stroke-linejoin="round"/>
+  <polygon points="260,12 508,155 508,446 260,589 12,446 12,155" fill="none" stroke="#8DB600" stroke-width="18" stroke-linejoin="round"/>
 </svg>
